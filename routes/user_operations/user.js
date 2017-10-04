@@ -308,6 +308,7 @@ router.post('/selectFaculty', function(req, res) {
         if (err){
             throw err;
             console.log("db hatası");
+            res.send({code: 400, message:result});
         }
         else{
             res.send({code: 200, message:result});
@@ -324,6 +325,7 @@ router.post('/selectDepartment', function(req, res) {
         if (err){
             throw err;
             console.log("db hatası");
+            res.send({code: 400, message:result});
         }
         else{
             res.send({code: 200, message:result});

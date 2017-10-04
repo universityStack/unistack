@@ -300,22 +300,34 @@ router.post("/login",function (req,res) {
 
 });
 
-
-
-
-router.post('/selectUniversity', function(req, res) {
-    db.query("SELECT * FROM university", function (err, result, fields) {
-        if (err) throw err;
-        res.send({code: 200, message:result});
-    });
-});
 router.post('/selectFaculty', function(req, res) {
 
     var uid = req.body.uid;
 
     db.query("SELECT * FROM faculty where uid = ?",[uid], function (err, result, fields) {
-        if (err) throw err;
-        res.send({code: 200, message:result});
+        if (err){
+            throw err;
+            console.log("db hatası");
+        }
+        else{
+            res.send({code: 200, message:result});
+        }
+    });
+});
+
+router.post('/selectDepartment', function(req, res) {
+
+    var uid = req.body.uid;
+    var fid = req.body.fid;
+
+    db.query("SELECT * FROM department where uid = ? and fid=?",[uid,fid], function (err, result, fields) {
+        if (err){
+            throw err;
+            console.log("db hatası");
+        }
+        else{
+            res.send({code: 200, message:result});
+        }
     });
 });
 

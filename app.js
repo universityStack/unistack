@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/img',express.static(__dirname + '/public/img'));
 app.use('/style',express.static(__dirname + '/public/style'));
 
-
+//deneme
 
 app.get('/',function (req,res) {
     res.end();

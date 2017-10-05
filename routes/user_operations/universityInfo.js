@@ -9,9 +9,9 @@ var router = express.Router();
 
 router.post('/selectFaculty', function(req, res) {
 
-    var uid = req.body.uid;
+    var uniCode = req.body.uniCode;
 
-    db.query("SELECT * FROM faculty where uid = ?",[uid], function (err, result, fields) {
+    db.query("SELECT * FROM faculty where uid =(select uid from university where uniCode = ?)",[uniCode], function (err, result, fields) {
         if (err){
             throw err;
             console.log("db hatası");

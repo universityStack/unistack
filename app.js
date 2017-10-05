@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var user = require('./routes/user_operations/user');
 var security = require('./routes/user_operations/security');
+var universityInfo = require('./routes/user_operations/universityInfo');
 var global_variables = require('./global_variables');
 
 var app = express();
@@ -19,6 +20,7 @@ app.get('/',function (req,res) {
 });
 app.use('/user',user);
 app.use('/security',security);
+app.use('/universityInfo',universityInfo);
 app.use(function (req,res) {
     return res.send({code: 400, message:"Sayfa mevcut değil"});
 });

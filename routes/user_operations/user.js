@@ -270,19 +270,19 @@ router.post("/login",function (req,res) {
                 if(userType == 0 ){
                     var activationStatus = result[0].activation_status;
                     if(activationStatus == 0){
-                        res.send({code:301, message:"hesap aktif değil ve öğrenci"});
+                        res.send({code:302, message:"hesap aktif değil ve öğrenci"});
                     }
                     else if(activationStatus == 1){
 
-                        db.query("SELECT * FROM universityinfo where userID=(SELECT id from users where email= ?)",[email],function (err,result) {
+                        db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,result) {
                             if(err){
                                 res.send({code:400,error:"db hatası"});
                             }
                             else if(result.length==1){
-                                res.send({code:201, message:"login başarılı formu daha önce doldurmuş öğrenci"});
+                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci"});
                             }
                             else{
-                                res.send({code:201, message:"login başarılı formu daha önce doldurmamış öğrenci"});
+                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci"});
                             }
                         });
 
@@ -293,15 +293,15 @@ router.post("/login",function (req,res) {
                 else if(userType == 1){
                     var activationStatus = result[0].activation_status;
                     if(activationStatus == 0){
-                        res.send({code:302, message:"hesap aktif değil ve hoca"});
+                        res.send({code:301, message:"hesap aktif değil ve hoca"});
                     }
                     else if(activationStatus == 1){
-                        db.query("SELECT * FROM universityinfo where userID=(SELECT id from users where email= ?)",[email],function (err,result) {
+                        db.query("SELECT * FROM universityinfo where userID= ?)",[result[0].id],function (err,result) {
                             if(err){
                                 res.send({code:400,error:"db hatası"});
                             }
                             else if(result.length==1){
-                                res.send({code:201, message:"login başarılı formu daha önce doldurmuş hoca"});
+                                res.send({code:202, message:"login başarılı formu daha önce doldurmuş hoca"});
                             }
                             else{
                                 res.send({code:201, message:"login başarılı formu daha önce doldurmamış hoca"});

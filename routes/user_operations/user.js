@@ -273,7 +273,20 @@ router.post("/login",function (req,res) {
                         res.send({code:301, message:"hesap aktif değil ve öğrenci"});
                     }
                     else if(activationStatus == 1){
-                        res.send({code:201, message:"login başarılı öğrenci"});
+
+                        db.query("SELECT * FROM universityinfo where userID=(SELECT id from users where email= ?)",[email],function (err,result) {
+                            if(err){
+                                res.send({code:400,error:"db hatası"});
+                            }
+                            else if(result.length==1){
+                                res.send({code:201, message:"login başarılı formu daha önce doldurmuş öğrenci"});
+                            }
+                            else{
+                                res.send({code:201, message:"login başarılı formu daha önce doldurmamış öğrenci"});
+                            }
+                        });
+
+
                     }
 
                 }
@@ -283,7 +296,17 @@ router.post("/login",function (req,res) {
                         res.send({code:302, message:"hesap aktif değil ve hoca"});
                     }
                     else if(activationStatus == 1){
-                        res.send({code:202, message:"login başarılı hoca"});
+                        db.query("SELECT * FROM universityinfo where userID=(SELECT id from users where email= ?)",[email],function (err,result) {
+                            if(err){
+                                res.send({code:400,error:"db hatası"});
+                            }
+                            else if(result.length==1){
+                                res.send({code:201, message:"login başarılı formu daha önce doldurmuş hoca"});
+                            }
+                            else{
+                                res.send({code:201, message:"login başarılı formu daha önce doldurmamış hoca"});
+                            }
+                        });
                     }
                 }
             }
@@ -298,39 +321,6 @@ router.post("/login",function (req,res) {
         }
     });
 
-});
-
-router.post('/selectFaculty', function(req, res) {
-
-    var uid = req.body.uid;
-
-    db.query("SELECT * FROM faculty where uid = ?",[uid], function (err, result, fields) {
-        if (err){
-            throw err;
-            console.log("db hatası");
-            res.send({code: 400, message:result});
-        }
-        else{
-            res.send({code: 200, message:result});
-        }
-    });
-});
-
-router.post('/selectDepartment', function(req, res) {
-
-    var uid = req.body.uid;
-    var fid = req.body.fid;
-
-    db.query("SELECT * FROM department where uid = ? and fid=?",[uid,fid], function (err, result, fields) {
-        if (err){
-            throw err;
-            console.log("db hatası");
-            res.send({code: 400, message:result});
-        }
-        else{
-            res.send({code: 200, message:result});
-        }
-    });
 });
 
 module.exports = router;

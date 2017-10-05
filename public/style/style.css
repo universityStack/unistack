@@ -17,3 +17,7 @@
 .row .message-bubble{
     max-width: 500px;
 }
+.main {
+    background: url(../img/banner.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+}

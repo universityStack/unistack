@@ -15,7 +15,7 @@ app.use('/style',express.static(__dirname + '/public/style'));
 
 
 app.get('/',function (req,res) {
-    res.end();
+    res.sendFile(__dirname + '/public/index.html');
 });
 app.use('/user',user);
 app.use('/security',security);

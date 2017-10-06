@@ -100,7 +100,8 @@ router.post("/register",function (req, res) {
             });}
     });
     timer = function (id) {
-        var task = cron.schedule('*/5 * * * *', function(){
+        setTimeout(function () {
+
 //first tokena geri dön;
             var newactivation_code = randomstring.generate(15);
             console.log(newactivation_code);
@@ -110,11 +111,9 @@ router.post("/register",function (req, res) {
                 }
                 else {
                     console.log("code patates");
-                    task.destroy();
-
                 }
             });
-        });
+        },3000);
     };
 
 

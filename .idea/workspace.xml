@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5249e1c7-69cb-4670-ba89-8eb40d4ac903" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/model/db.js" afterPath="$PROJECT_DIR$/routes/model/db.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/user_operations/universityInfo.js" afterPath="$PROJECT_DIR$/routes/user_operations/universityInfo.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,27 +26,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="universityInfo.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="universityInfo.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/user_operations/universityInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="90" column="24" lean-forward="true" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
+            <state relative-caret-position="290">
+              <caret line="74" column="45" lean-forward="false" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
               <folding>
                 <element signature="e#344#778#0" expanded="false" />
                 <element signature="e#831#1288#0" expanded="false" />
                 <element signature="e#1344#1857#0" expanded="false" />
-                <element signature="e#1903#2705#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="db.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/model/db.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -94,8 +83,8 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/user_operations/user.js" />
         <option value="$PROJECT_DIR$/routes/user_operations/security.js" />
-        <option value="$PROJECT_DIR$/routes/user_operations/universityInfo.js" />
         <option value="$PROJECT_DIR$/routes/model/db.js" />
+        <option value="$PROJECT_DIR$/routes/user_operations/universityInfo.js" />
       </list>
     </option>
   </component>
@@ -117,7 +106,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="338" />
     <option name="y" value="-14" />
     <option name="width" value="697" />
@@ -227,15 +216,15 @@
       <workItem from="1507237440376" duration="232000" />
       <workItem from="1507308963107" duration="6085000" />
       <workItem from="1507315346088" duration="2000" />
-      <workItem from="1507396213906" duration="10525000" />
+      <workItem from="1507396213906" duration="10995000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26951000" />
+    <option name="totallyTimeSpent" value="27421000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16837482" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -473,19 +462,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/user_operations/universityInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="90" column="24" lean-forward="true" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
-          <folding>
-            <element signature="e#344#778#0" expanded="false" />
-            <element signature="e#831#1288#0" expanded="false" />
-            <element signature="e#1344#1857#0" expanded="false" />
-            <element signature="e#1903#2705#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/user_operations/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
@@ -499,6 +475,18 @@
         <state relative-caret-position="68">
           <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/user_operations/universityInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="74" column="45" lean-forward="false" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
+          <folding>
+            <element signature="e#344#778#0" expanded="false" />
+            <element signature="e#831#1288#0" expanded="false" />
+            <element signature="e#1344#1857#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

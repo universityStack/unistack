@@ -72,7 +72,7 @@ router.post('/submit', function (req,res) {
         }
         else {
             console.log(data[0].uid);
-            db.query("INSERT INTO universityInfo (userID, uniID, facID, depID, sinif) VALUES (?,?,?,?)",[userID,data[0].uid,unitID,facID,sinif], function (err, result) {
+            db.query("INSERT INTO universityinfo (userID, uniID, facID, depID, sinif) VALUES (?,?,?,?)",[userID,data[0].uid,unitID,facID,sinif], function (err, result) {
                 if (err){
                 res.send({code: 400, message:err});                }
 

@@ -81,10 +81,8 @@ router.get('/accountVerify', function(req, res) {
 });
 
 router.get('/accountVerifyAgain', function (req,res) {
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    var q = url.parse(fullUrl,true);
-    var data = q.query;
-    var email = data.email;
+
+    var email = req.query.email;
     console.log(email);
     idCrypo = function (id) {
         var ciphertext = CryptoJS.AES.encrypt(id, 'evren1numara');

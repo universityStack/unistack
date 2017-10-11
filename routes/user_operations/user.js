@@ -273,15 +273,15 @@ router.post("/login",function (req,res) {
                     }
                     else if(activationStatus == 1){
 
-                        db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,result) {
+                        db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,veri) {
                             if(err){
                                 res.send({code:400,error:"db hatası"});
                             }
-                            else if(result.length==1){
-                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci"});
+                            else if(veri.length==1){
+                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", id :result[0].id});
                             }
                             else{
-                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci"});
+                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", id :result[0].id});
                             }
                         });
 
@@ -295,17 +295,19 @@ router.post("/login",function (req,res) {
                         res.send({code:301, message:"hesap aktif değil ve hoca"});
                     }
                     else if(activationStatus == 1){
-                        db.query("SELECT * FROM universityinfo where userID= ?)",[result[0].id],function (err,result) {
+
+                        db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,veri) {
                             if(err){
                                 res.send({code:400,error:"db hatası"});
                             }
-                            else if(result.length==1){
-                                res.send({code:202, message:"login başarılı formu daha önce doldurmuş hoca"});
+                            else if(veri.length==1){
+                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", id :result[0].id});
                             }
                             else{
-                                res.send({code:201, message:"login başarılı formu daha önce doldurmamış hoca"});
+                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", id :result[0].id});
                             }
                         });
+
                     }
                 }
             }

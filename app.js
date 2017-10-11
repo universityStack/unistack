@@ -34,19 +34,20 @@ var server = app.listen(global_variables.server_port(),function () {
 
 var io = require("socket.io").listen(server);
 io.sockets.on("connection", function (socket) {
-
+    console.log("connection successful...");
     var global ;
-   socket.on("channelfixer", function (mychannel) {
+
+    socket.on("channelfixer", function (mychannel) {
        socket.join(mychannel);
        global = mychannel;
-   });
+    });
 
 
-   console.log("connection successful...");
 
 
-   socket.on("message", function (msg) {
-    socket.to(socket.rooms[global]).emit('message', msg);
-   });
+
+    socket.on("message", function (msg) {
+        socket.to(socket.rooms[global]).emit('message', msg);
+    });
 
 });

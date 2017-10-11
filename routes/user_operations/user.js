@@ -5,6 +5,7 @@ var passwordHash = require('password-hash');
 var cron = require('node-cron');
 var randomstring = require("randomstring");
 var db = require('../model/db');
+var jwt = require('jsonwebtoken');
 var router = express.Router();
 
 
@@ -264,6 +265,19 @@ router.post("/login",function (req,res) {
             var hashedPassword = result[0].password;
             var statusPassword = passwordHash.isHashed(hashedPassword);
             var verifyPassword = passwordHash.verify(password,hashedPassword);
+
+
+
+            var token = jwt.sign({ user: result[0] }, 'tolunayguduk');
+            db.query('UPDATE users SET token = ? WHERE id= ?', [token,result[0].id],function (err,data) {
+                if (err){
+                    res.send({code : 400, message : 'db token ekleme hatası'});
+                }
+            });
+
+
+
+
             if(verifyPassword== true && statusPassword== true){
                 var userType = result[0].user_type;
                 if(userType == 0 ){
@@ -278,10 +292,10 @@ router.post("/login",function (req,res) {
                                 res.send({code:400,error:"db hatası"});
                             }
                             else if(veri.length==1){
-                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", id :result[0].id});
+                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : token});
                             }
                             else{
-                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", id :result[0].id});
+                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token : token});
                             }
                         });
 
@@ -301,10 +315,10 @@ router.post("/login",function (req,res) {
                                 res.send({code:400,error:"db hatası"});
                             }
                             else if(veri.length==1){
-                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", id :result[0].id});
+                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", token : token});
                             }
                             else{
-                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", id :result[0].id});
+                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", token : token});
                             }
                         });
 

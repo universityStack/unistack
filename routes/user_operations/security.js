@@ -2,6 +2,7 @@ var express = require('express');
 var CryptoJS = require("crypto-js");
 var randomstring = require("randomstring");
 var nodemailer = require('nodemailer');
+var jwt = require('jsonwebtoken');
 var cron = require('node-cron');
 var url = require('url');
 var db = require('../model/db');
@@ -161,5 +162,28 @@ router.get('/accountVerifyAgain', function (req,res) {
 
 } );
 
+router.get('/tokenControl', ensureToken, function(req, res){
+    jwt.verify(req.token, 'tolunayguduk', function(err, data) {
+        if (err) {
+            res.sendStatus(403);
+        } else {
+            res.json({
+                description: 'Protected information. Congrats!'
+            });
+        }
+    });
+});
+
+function ensureToken(req, res, next) {
+    const bearerHeader = req.headers["oturum"];
+    if (typeof bearerHeader !== 'undefined') {
+        const bearer = bearerHeader.split(" ");
+        const bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    } else {
+        res.sendStatus(403);
+    }
+}
 
 module.exports = router;

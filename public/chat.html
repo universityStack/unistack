@@ -1,0 +1,25 @@
+<html>
+<head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+
+        var socket = io();
+        var channel = prompt("kanal adı : ");
+        socket.emit("channelfixer",channel);
+        socket.on("connect", function () {
+           socket.on("message", function (msg) {
+               $("#alert").append(msg);
+           });
+        });
+    </script>
+
+
+
+</head>
+<body>
+    <h1 style="color: blue">BLUE CHANNEL</h1>
+    <h1 id="alert"></h1>
+</body>
+</html>

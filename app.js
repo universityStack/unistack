@@ -18,7 +18,7 @@ app.get('/',function (req,res) {
 app.use('/user',user);
 app.use('/security',security);
 app.use('/universityInfo',universityInfo);
-app.get('/chat',function (req,res) {
+app.use('/chat',function (req,res) {
     res.sendFile(__dirname + '/public/chat.html');
 });
 app.use(function (req,res) {

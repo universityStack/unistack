@@ -8,7 +8,6 @@ var db = require('../model/db');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
 
-
 router.post("/register",function (req, res) {
     var data = req.body;
     console.log(data);
@@ -23,19 +22,19 @@ router.post("/register",function (req, res) {
     var activate_Code = randomstring.generate(15);
     var user_type=0;
     if(!name){
-        return res.send({code: 400, message:"Kullanıcı adı eksik" });
+        return res.send({code: 400, error:"Kullanıcı adı eksik" });
     }
     if(!surname){
-        return res.send({code: 400, message:"Şifre eksik"});
+        return res.send({code: 400, error:"Şifre eksik"});
     }
     if(!email){
-        return res.send({code: 400, message:"Email eksik"});
+        return res.send({code: 400, error:"Email eksik"});
     }
     if(!password){
-        return res.send({code: 400, message:"Password Eksik"});
+        return res.send({code: 400, error:"Password Eksik"});
     }
     if (!(email.toLowerCase().endsWith(".edu.tr"))){
-        return res.send({code: 400, message: "üniversite maili değil."})
+        return res.send({code: 400, error: "üniversite maili değil."})
     }
     if((email.toLowerCase().search(".ogr"))== -1){
         user_type=1;
@@ -47,12 +46,12 @@ router.post("/register",function (req, res) {
 //if exist username ?
     db.query("SELECT * FROM users WHERE email=?",[email],function (err,result) {
         if (result.length == 1){
-            res.send({code: 400, message:"Bu email daha önceden alınmış"});
+            res.send({code: 400, error:"Bu email daha önceden alınmış"});
         }
         else {
             db.query("INSERT INTO users(name, surname, email, password, user_type, activation_status, activation_code, spam, created_at) VALUES(?,?,?,?,?,?,?,?,NOW())", [name, surname, email, hashedPassword, user_type, 0, activate_Code,0], function (err,result) {
                 if (err){
-                    return res.send({code: 400, message:"db hatası"})
+                    return res.send({code: 400, error:"db hatası"})
                 }
                 else{
                     var user_id = result.insertId;
@@ -83,7 +82,7 @@ router.post("/register",function (req, res) {
                         } else {
                             db.query("UPDATE users SET spam=? WHERE id=?",[1,user_id],function (err,result) {
                                 if (err){
-                                    return res.send({code:400, message:"db hatasııı"});
+                                    return res.send({code:400, error:"db hatasııı"});
                                 }
                                 else {
                                     return res.send({code: 200, message:"Mail başarılı bir şekilde gönderildi..."});
@@ -101,20 +100,18 @@ router.post("/register",function (req, res) {
             });}
     });
     timer = function (id) {
-        setTimeout(function () {
 
-//first tokena geri dön;
+        setTimeout(function () {
             var newactivation_code = randomstring.generate(15);
             console.log(newactivation_code);
-            db.query("UPDATE users SET activation_code=?,spam=? WHERE id=?",[newactivation_code,0,id],function (err,result) {
-                if (err){
-                    return res.send({code:400, message:"db hatasııı"});
-                }
-                else {
-                    console.log("code patates");
-                }
+            db.query("UPDATE users SET activation_code=?,spam=? WHERE id=?",[newactivation_code,0,id],function (err,result) {                 if (err){
+                return res.send({code:400, error:"db hatasııı"});
+            }
+            else {
+                console.log("code patates");
+            }
             });
-        },3000);
+        }, 300000)
     };
 
 
@@ -122,8 +119,8 @@ router.post("/register",function (req, res) {
 
 
 
-});
 
+});
 router.post('/forgotPassword', function(req, res) {
     var email = req.body.email;
     var token = randomstring.generate(15);
@@ -251,12 +248,14 @@ router.post('/forgotPassword', function(req, res) {
     };
 
 });
-
 router.post("/login",function (req,res) {
     var data = req.body;
     console.log(data);
     var email = req.body.email;
     var password = req.body.password;
+
+
+
     db.query("SELECT * FROM users WHERE email=?",[email],function (err,result) {
         if(err){
             res.send({code:400,error:"db hatası"});
@@ -268,62 +267,127 @@ router.post("/login",function (req,res) {
 
 
 
-            var token = jwt.sign({ user: result[0] }, 'tolunayguduk');
-            db.query('UPDATE users SET token = ? WHERE id= ?', [token,result[0].id],function (err,data) {
-                if (err){
-                    res.send({code : 400, message : 'db token ekleme hatası'});
-                }
-            });
-
-
-
-
             if(verifyPassword== true && statusPassword== true){
-                var userType = result[0].user_type;
-                if(userType == 0 ){
-                    var activationStatus = result[0].activation_status;
-                    if(activationStatus == 0){
-                        res.send({code:302, message:"hesap aktif değil ve öğrenci"});
+
+
+                if(result[0].token){
+                    var userType = result[0].user_type;
+                    if(userType == 0 ){
+                        var activationStatus = result[0].activation_status;
+                        if(activationStatus == 0){
+                            res.send({code:302, message:"hesap aktif değil ve öğrenci"});
+                        }
+                        else if(activationStatus == 1){
+
+                            db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,veri) {
+                                if(err){
+                                    res.send({code:400,error:"db hatası"});
+                                }
+                                else if(veri.length==1){
+                                    res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token});
+                                }
+                                else{
+                                    res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token});
+                                }
+                            });
+
+
+                        }
+
                     }
-                    else if(activationStatus == 1){
+                    else if(userType == 1){
+                        var activationStatus = result[0].activation_status;
+                        if(activationStatus == 0){
+                            res.send({code:301, message:"hesap aktif değil ve hoca"});
+                        }
+                        else if(activationStatus == 1){
 
-                        db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,veri) {
-                            if(err){
-                                res.send({code:400,error:"db hatası"});
-                            }
-                            else if(veri.length==1){
-                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : token});
-                            }
-                            else{
-                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token : token});
-                            }
-                        });
+                            db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,veri) {
+                                if(err){
+                                    res.send({code:400,error:"db hatası"});
+                                }
+                                else if(veri.length==1){
+                                    res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", token :  result[0].token});
+                                }
+                                else{
+                                    res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", token :  result[0].token});
+                                }
+                            });
 
-
+                        }
                     }
+                }
+                else{
+                    var token = jwt.sign({ user: result[0] }, 'tolunayguduk');
+                    db.query('UPDATE users SET token = ? WHERE id= ?', [token,result[0].id],function (err,data) {
+                        if (err){
+                            res.send({code : 400, message : 'db token ekleme hatası'});
+                        }
+                    });
+                    db.query("SELECT * FROM users WHERE email=?",[email],function (err,result){
+                      if(err){
+                          res.send({code : 400 , message : 'db hatası'});
+                      }
+                      else if(result.length==1) {
+                          var hashedPassword = result[0].password;
+                          var statusPassword = passwordHash.isHashed(hashedPassword);
+                          var verifyPassword = passwordHash.verify(password, hashedPassword);
+                          if(verifyPassword== true && statusPassword== true) {
+
+                              var userType = result[0].user_type;
+                              if(userType == 0 ){
+                                  var activationStatus = result[0].activation_status;
+                                  if(activationStatus == 0){
+                                      res.send({code:302, message:"hesap aktif değil ve öğrenci"});
+                                  }
+                                  else if(activationStatus == 1){
+
+                                      db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,veri) {
+                                          if(err){
+                                              res.send({code:400,error:"db hatası"});
+                                          }
+                                          else if(veri.length==1){
+                                              res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token});
+                                          }
+                                          else{
+                                              res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token});
+                                          }
+                                      });
+
+
+                                  }
+
+                              }
+                              else if(userType == 1){
+                                  var activationStatus = result[0].activation_status;
+                                  if(activationStatus == 0){
+                                      res.send({code:301, message:"hesap aktif değil ve hoca"});
+                                  }
+                                  else if(activationStatus == 1){
+
+                                      db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,veri) {
+                                          if(err){
+                                              res.send({code:400,error:"db hatası"});
+                                          }
+                                          else if(veri.length==1){
+                                              res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", token :  result[0].token});
+                                          }
+                                          else{
+                                              res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", token :  result[0].token});
+                                          }
+                                      });
+
+                                  }
+                              }
+
+                          }
+                      }
+                    });
 
                 }
-                else if(userType == 1){
-                    var activationStatus = result[0].activation_status;
-                    if(activationStatus == 0){
-                        res.send({code:301, message:"hesap aktif değil ve hoca"});
-                    }
-                    else if(activationStatus == 1){
 
-                        db.query("SELECT * FROM universityinfo where userID=?", [result[0].id] ,function (err,veri) {
-                            if(err){
-                                res.send({code:400,error:"db hatası"});
-                            }
-                            else if(veri.length==1){
-                                res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", token : token});
-                            }
-                            else{
-                                res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", token : token});
-                            }
-                        });
 
-                    }
-                }
+
             }
             else {
                 res.send({code:400, error:"şifre yanlış"});

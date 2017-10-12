@@ -8,7 +8,6 @@ var url = require('url');
 var db = require('../model/db');
 var router = express.Router();
 
-
 router.get('/accountVerify', function(req, res) {
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var q = url.parse(fullUrl,true);
@@ -77,10 +76,7 @@ router.get('/accountVerify', function(req, res) {
 
 
 
-
-
 });
-
 router.get('/accountVerifyAgain', function (req,res) {
 
     var email = req.query.email;
@@ -173,7 +169,6 @@ router.get('/tokenControl', ensureToken, function(req, res){
         }
     });
 });
-
 function ensureToken(req, res, next) {
     const bearerHeader = req.headers["oturum"];
     if (typeof bearerHeader !== 'undefined') {

@@ -65,6 +65,7 @@ router.post('/submit', function (req,res) {
     var uniCode = req.body.uniCode;
     var unitID = req.body.unitID;
     var facID = req.body.facID;
+    var depID = req.body.depID;
     var sinif = req.body.sinif;
     db.query("select uid from university where uniCode=?",[uniCode],function (err,data) {
         if(err){
@@ -72,7 +73,7 @@ router.post('/submit', function (req,res) {
         }
         else {
             console.log(data[0].uid);
-            db.query("INSERT INTO universityinfo (userID, uniID, facID, depID, sinif) VALUES (?,?,?,?,?)",[userID,data[0].uid,unitID,facID,sinif], function (err, result) {
+            db.query("INSERT INTO universityinfo (userID, uniID, facID, depID, sinif) VALUES (?,?,?,?,?)",[userID,data[0].uid,facID,depID,sinif], function (err, result) {
                 if (err){
                 res.send({code: 400, message:err});                }
 

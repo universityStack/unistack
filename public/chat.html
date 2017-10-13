@@ -5,7 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
 
-        var socket = io('http://localhost:3000');
+        var socket = io();
         var channel = prompt("kanal adı : ");
         var ad = prompt("adınız");
         socket.emit("channelfixer",channel);

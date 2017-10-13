@@ -34,20 +34,23 @@ var server = app.listen(global_variables.server_port(),function () {
 
 var io = require("socket.io").listen(server);
 io.sockets.on("connection", function (socket) {
-    console.log("connection successful...");
-    var global ;
+    var kanal;
+    var kullanici;
 
+
+    socket.on('user',function (user) {
+        kullanici = user;
+        console.log(kullanici + ' connected to : ' + kanal);
+    });
     socket.on("channelfixer", function (mychannel) {
        socket.join(mychannel);
-       global = mychannel;
+        kanal = mychannel;
     });
-
-
-
-
-
+    socket.on('disconnect', function(){
+        console.log(kullanici + ' disconnected from : ' + kanal);
+    });
     socket.on("message", function (msg) {
-        socket.to(socket.rooms[global]).emit('message', msg);
+        socket.to(socket.rooms[kanal]).emit('message', msg);
     });
 
 });

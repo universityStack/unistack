@@ -5,14 +5,18 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
 
-        var socket = io();
+        var socket = io('http://localhost:3000');
         var channel = prompt("kanal adı : ");
+        var ad = prompt("adınız");
         socket.emit("channelfixer",channel);
+        socket.emit("user", ad);
         socket.on("connect", function () {
            socket.on("message", function (msg) {
                $("#alert").append(msg);
            });
         });
+
+
     </script>
 
 

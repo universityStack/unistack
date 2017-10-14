@@ -158,27 +158,44 @@ router.get('/accountVerifyAgain', function (req,res) {
 
 } );
 
+
+
+
+
+
+
+
+
+
 router.get('/tokenControl', ensureToken, function(req, res){
+
+    console.log(req.token);
+
     jwt.verify(req.token, 'tolunayguduk', function(err, data) {
         if (err) {
-            res.sendStatus(403);
+            res.send(err);
         } else {
-            res.json({
-                description: 'Protected information. Congrats!'
-            });
+            res.send(data);
         }
     });
 });
 function ensureToken(req, res, next) {
-    const bearerHeader = req.headers["oturum"];
+    const bearerHeader = req.headers.authorization;
     if (typeof bearerHeader !== 'undefined') {
         const bearer = bearerHeader.split(" ");
         const bearerToken = bearer[1];
+        console.log(bearer);
         req.token = bearerToken;
         next();
     } else {
         res.sendStatus(403);
     }
 }
+
+
+
+
+
+
 
 module.exports = router;

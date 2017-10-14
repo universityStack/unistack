@@ -318,7 +318,9 @@ router.post("/login",function (req,res) {
                     }
                 }
                 else{
-                    var token = jwt.sign({ user: result[0] }, 'tolunayguduk');
+
+                    var token = jwt.sign({id : result[0].id , name : result[0].name, surname : result[0].surname, email : result[0].email, user_type : result[0].user_type}, 'tolunayguduk');
+                    console.log({id : result[0].id , name : result[0].name});
                     db.query('UPDATE users SET token = ? WHERE id= ?', [token,result[0].id],function (err,data) {
                         if (err){
                             res.send({code : 400, message : 'db token ekleme hatası'});

@@ -13,6 +13,7 @@
     "mysql": "^2.5.4",
     "node-cron": "^1.2.1",
     "nodemailer": "^4.1.1",
+    "parse-http-header": "^1.0.0",
     "password-hash": "^1.2.2",
     "path": "^0.12.7",
     "randomstring": "^1.1.5",

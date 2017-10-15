@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require("body-parser");
 var path = require("path");
+var db = require('./routes/model/db');
 var user = require('./routes/user_operations/user');
 var security = require('./routes/user_operations/security');
 var universityInfo = require('./routes/user_operations/universityInfo');
@@ -50,7 +51,20 @@ io.sockets.on("connection", function (socket) {
         console.log(kullanici + ' disconnected from : ' + kanal);
     });
     socket.on("message", function (msg) {
-        socket.to(socket.rooms[kanal]).emit('message', msg);
+        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, kullanici, kanal],function (err,data) {
+            if(err){
+                console.log(err);
+            }
+            else{
+                var veri = {
+                    'mesaj' : msg,
+                    'user' : kullanici,
+                    "kanal" : kanal,
+                    "tarih" : new Date().getHours()+":"+ new Date().getMinutes() + "/" + new Date().getDay() + "." + new Date().getMonth() + "." + new Date().getFullYear()
+                }
+                socket.to(socket.rooms[kanal]).emit('message', veri);
+            }
+        });
     });
 
 });

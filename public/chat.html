@@ -11,8 +11,8 @@
         socket.emit("channelfixer",channel);
         socket.emit("user", ad);
         socket.on("connect", function () {
-           socket.on("message", function (msg) {
-               $("#alert").append(msg);
+           socket.on("message", function (veri) {
+               console.log(veri);
            });
         });
 
@@ -23,7 +23,6 @@
 
 </head>
 <body>
-    <h1 style="color: blue">BLUE CHANNEL</h1>
-    <h1 id="alert"></h1>
+    <h1 style="color: blue">UNISTACK CHAT TEST</h1>
 </body>
 </html>

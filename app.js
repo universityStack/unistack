@@ -61,6 +61,7 @@ io.sockets.on("connection", function (socket) {
                     'user' : kullanici,
                     "kanal" : kanal,
                     "tarih" : new Date().getHours()+":"+ new Date().getMinutes() + "/" + new Date().getDay() + "." + new Date().getMonth() + "." + new Date().getFullYear()
+                //surum
                 }
                 socket.to(socket.rooms[kanal]).emit('message', veri);
             }

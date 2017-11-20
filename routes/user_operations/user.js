@@ -2,7 +2,6 @@ var express = require('express');
 var nodemailer = require('nodemailer');
 var CryptoJS = require("crypto-js");
 var passwordHash = require('password-hash');
-var cron = require('node-cron');
 var randomstring = require("randomstring");
 var db = require('../model/db');
 var jwt = require('jsonwebtoken');
@@ -232,21 +231,20 @@ router.post('/forgotPassword', function(req, res) {
         }
     });
 
-    timer = function (token) {
-        var task = cron.schedule('*/5 * * * *', function(){
-            db.query("UPDATE change_password SET spam=? WHERE token=?",[0,token],function (err,result) {
-                if (err){
-                    return res.send({code:400, message:"db hatasııı"});
-                }
-                else {
-                    console.log("spam pasif");
-                    task.destroy();
+    timer = function (id) {
 
-                }
+        setTimeout(function () {
+            var newactivation_code = randomstring.generate(15);
+            console.log(newactivation_code);
+            db.query("UPDATE users SET activation_code=?,spam=? WHERE id=?",[newactivation_code,0,id],function (err,result) {                 if (err){
+                return res.send({code:400, error:"db hatasııı"});
+            }
+            else {
+                console.log("code patates");
+            }
             });
-        });
+        }, 300000)
     };
-
 });
 router.post("/login",function (req,res) {
     var data = req.body;

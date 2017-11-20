@@ -2,7 +2,6 @@ var express = require('express');
 var nodemailer = require('nodemailer');
 var CryptoJS = require("crypto-js");
 var passwordHash = require('password-hash');
-var cron = require('node-cron');
 var randomstring = require("randomstring");
 var db = require('../model/db');
 var router = express.Router();

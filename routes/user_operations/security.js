@@ -3,7 +3,6 @@ var CryptoJS = require("crypto-js");
 var randomstring = require("randomstring");
 var nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
-var cron = require('node-cron');
 var url = require('url');
 var db = require('../model/db');
 var router = express.Router();

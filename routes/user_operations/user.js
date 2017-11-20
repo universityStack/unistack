@@ -402,4 +402,29 @@ router.post("/login",function (req,res) {
 
 });
 
+
+router.get('/outoLogin',ensureToken ,function (req,res) {
+    jwt.verify(req.token, 'tolunayguduk', function(err, data) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(data);
+        }
+    });
+
+});
+function ensureToken(req, res, next) {
+    const bearerHeader = req.header("token");
+    console.log(bearerHeader);
+    if (typeof bearerHeader !== 'undefined') {
+        const bearer = bearerHeader.split(" ");
+        const bearerToken = bearer[1];
+        console.log(bearer);
+        req.token = bearerToken;
+        next();
+    } else {
+        res.sendStatus(403);
+    }
+}
+
 module.exports = router;

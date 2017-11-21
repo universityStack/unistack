@@ -14,13 +14,23 @@
            socket.on("message", function (veri) {
                console.log(veri);
            });
+           socket.on('typing',function (status) {
+               $('#not').text(status);
+           });
+            socket.on('stoptyping',function (status) {
 
-
-
+                $('#not').text(status).delay(90000);
+            });
         });
 
 
+        function typing() {
+            socket.emit('typing', ad + ' typing');
+        }
 
+        function stoptyping() {
+            socket.emit('stoptyping', '');
+        }
 
 
 
@@ -31,7 +41,7 @@
 </head>
 <body>
     <h1 style="color: blue">UNISTACK CHAT TEST</h1>
-    <input type="text" id="typing">
+    <input type="text" onkeydown="typing()" onkeyup="stoptyping()" id="typing">
     <p id="not"></p>
 
 </body>

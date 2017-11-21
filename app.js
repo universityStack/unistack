@@ -23,6 +23,9 @@ app.use('/universityInfo',universityInfo);
 app.get('/chat',function (req,res) {
     res.sendFile(__dirname + '/public/chat.html');
 });
+app.get('/upload',function (req,res) {
+    res.sendFile(__dirname + '/public/upload.html');
+});
 app.use(function (req,res) {
     return res.send({code: 400, message:"Sayfa mevcut değil"});
 });
@@ -66,6 +69,12 @@ io.sockets.on("connection", function (socket) {
                 socket.to(socket.rooms[kanal]).emit('message', veri);
             }
         });
+    });
+    socket.on('typing', function (status) {
+        socket.to(socket.rooms[kanal]).emit('typing', status);
+    });
+    socket.on('stoptyping', function (status) {
+        socket.to(socket.rooms[kanal]).emit('stoptyping', status);
     });
 
 

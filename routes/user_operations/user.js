@@ -4,9 +4,11 @@ var CryptoJS = require("crypto-js");
 var passwordHash = require('password-hash');
 var randomstring = require("randomstring");
 var db = require('../model/db');
+var profile = require('./profile/profile');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
 
+//#####################################################################
 router.post("/register",function (req, res) {
     var data = req.body;
     console.log(data);
@@ -282,10 +284,10 @@ router.post("/login",function (req,res) {
                                     res.send({code:400,error:"db hatası"});
                                 }
                                 else if(veri.length==1){
-                                    res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token});
+                                    res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token , id : result[0].id});
                                 }
                                 else{
-                                    res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token});
+                                    res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token,  id : result[0].id});
                                 }
                             });
 
@@ -305,10 +307,10 @@ router.post("/login",function (req,res) {
                                     res.send({code:400,error:"db hatası"});
                                 }
                                 else if(veri.length==1){
-                                    res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", token :  result[0].token});
+                                    res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", token :  result[0].token,  id : result[0].id});
                                 }
                                 else{
-                                    res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", token :  result[0].token});
+                                    res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", token :  result[0].token,  id : result[0].id});
                                 }
                             });
 
@@ -347,10 +349,10 @@ router.post("/login",function (req,res) {
                                               res.send({code:400,error:"db hatası"});
                                           }
                                           else if(veri.length==1){
-                                              res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token});
+                                              res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token,  id : result[0].id});
                                           }
                                           else{
-                                              res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token});
+                                              res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token,  id : result[0].id});
                                           }
                                       });
 
@@ -370,10 +372,10 @@ router.post("/login",function (req,res) {
                                               res.send({code:400,error:"db hatası"});
                                           }
                                           else if(veri.length==1){
-                                              res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", token :  result[0].token});
+                                              res.send({code:204, message:"login başarılı formu daha önce doldurmuş hoca", token :  result[0].token,  id : result[0].id});
                                           }
                                           else{
-                                              res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", token :  result[0].token});
+                                              res.send({code:203, message:"login başarılı formu daha önce doldurmamış hoca", token :  result[0].token,  id : result[0].id});
                                           }
                                       });
 
@@ -401,14 +403,19 @@ router.post("/login",function (req,res) {
     });
 
 });
-
-
 router.get('/outoLogin',ensureToken ,function (req,res) {
     jwt.verify(req.token, 'tolunayguduk', function(err, data) {
         if (err) {
             res.send(err);
         } else {
-            res.send(data);
+            db.query("select * from universityInfo where userID=?",[data.id], function (err,result) {
+                if(err){
+                    res.send({code:400,error:"db hatası"});
+                }
+                else{
+                    console.log(result[0]);
+                }
+            });
         }
     });
 
@@ -426,5 +433,11 @@ function ensureToken(req, res, next) {
         res.sendStatus(403);
     }
 }
+//#####################################################################
 
+
+
+//#####################################################################
+router.use('/profile',profile);
+//#####################################################################
 module.exports = router;

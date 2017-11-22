@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var db = require('./routes/model/db');
 var user = require('./routes/user_operations/user');
+var chatOldMessage = require('./routes/user_operations/chatOldMessage');
 var security = require('./routes/user_operations/security');
 var universityInfo = require('./routes/user_operations/universityInfo');
 var global_variables = require('./global_variables');
@@ -20,6 +21,7 @@ app.get('/',function (req,res) {
 app.use('/user',user);
 app.use('/security',security);
 app.use('/universityInfo',universityInfo);
+app.use('/chatOldMessage',chatOldMessage);
 app.get('/chat',function (req,res) {
     res.sendFile(__dirname + '/public/chat.html');
 });

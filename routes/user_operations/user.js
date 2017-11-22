@@ -413,7 +413,7 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
                     res.send({code:400,error:"db hatası"});
                 }
                 else{
-                    console.log(result[0]);
+                    res.send(result);
                 }
             });
         }
@@ -422,11 +422,9 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
 });
 function ensureToken(req, res, next) {
     const bearerHeader = req.header("token");
-    console.log(bearerHeader);
     if (typeof bearerHeader !== 'undefined') {
         const bearer = bearerHeader.split(" ");
         const bearerToken = bearer[1];
-        console.log(bearer);
         req.token = bearerToken;
         next();
     } else {

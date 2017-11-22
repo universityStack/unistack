@@ -410,8 +410,7 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
         } else {
             db.query("select * from universityInfo where userID=?",[data.id], function (err,result) {
                 if(err){
-                    res.send({code:400,error:"db hatası2"});
-                    res.send(err);
+                    res.send({code:400,error:"db hatası2",error:err});
                 }
                 else{
                     res.send(result);

@@ -410,10 +410,24 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
         } else {
             db.query("select * from universityinfo where userID=?",[data.id], function (err,result) {
                 if(err){
-                    res.send({code:400,error:"db hatası2",error:err});
+                    res.send({code:400,error:"db hatası",error:err});
                 }
                 else{
-                    res.send(result);
+
+                    veriler={
+                        id: data.id,
+                        name:data.name,
+                        surname:data.surname,
+                        email:data.email,
+                        userType:data.user_type,
+                        uniID:result.uniID,
+                        facID:result.facID,
+                        unitID:result.unitID,
+                        depID:result.depID,
+                        sinif:result.sinif
+                    }
+
+                    res.send(veriler);
                 }
             });
         }

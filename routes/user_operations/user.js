@@ -413,18 +413,17 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
                     res.send({code:400,error:"db hatası",error:err});
                 }
                 else{
-
                     veriler={
                         id: data.id,
                         name:data.name,
                         surname:data.surname,
                         email:data.email,
                         userType:data.user_type,
-                        uniID:result.uniID,
-                        facID:result.facID,
-                        unitID:result.unitID,
-                        depID:result.depID,
-                        sinif:result.sinif
+                        uniID:result[0].uniID,
+                        facID:result[0].facID,
+                        unitID:result[0].unitID,
+                        depID:result[0].depID,
+                        sinif:result[0].sinif
                     }
 
                     res.send(veriler);

@@ -408,7 +408,7 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
         if (err) {
             res.send(err);
         } else {
-            db.query("select * from universityInfo where userID=?",[data.id], function (err,result) {
+            db.query("select * from universityinfo where userID=?",[data.id], function (err,result) {
                 if(err){
                     res.send({code:400,error:"db hatası2",error:err});
                 }

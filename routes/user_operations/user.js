@@ -438,7 +438,7 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
                                 uniID:result[0].uniID,
                                 uniCode:result2[0].uniCode,
                                 facID:result[0].facID,
-                                facName:result2[0].facName,
+                                facName:result2[0].fakulte,
                                 unitID:result[0].unitID,
                                 unitName:result2[0].unitName,
                                 depID:result[0].depID,

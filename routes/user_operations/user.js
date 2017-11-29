@@ -413,20 +413,41 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
                     res.send({code:400,error:"db hatası",error:err});
                 }
                 else{
-                    veriler={
-                        id: data.id,
-                        name:data.name,
-                        surname:data.surname,
-                        email:data.email,
-                        userType:data.user_type,
-                        uniID:result[0].uniID,
-                        facID:result[0].facID,
-                        unitID:result[0].unitID,
-                        depID:result[0].depID,
-                        sinif:result[0].sinif
-                    }
 
-                    res.send(veriler);
+                    sql = "SELECT university.uniCode,units.unitName,faculty.fakülte,department.depName,universityinfo.sinif";
+                    sql += " FROM universityinfo";
+                    sql += " INNER JOIN university ON universityinfo.uniID = university.uid";
+                    sql += " INNER JOIN units ON universityinfo.unitID = units.unitID";
+                    sql += " INNER JOIN faculty ON universityinfo.facID = faculty.fid";
+                    sql += " INNER JOIN department ON universityinfo.depID = department.depID";
+                    sql += " INNER JOIN users ON universityinfo.userID = ?";
+
+
+                    db.query(sql, [data.id], function (err, result2) {
+                        if(err){
+                            res.send({code:400,error:"db hatası",error:err});
+                        }
+                        else{
+
+                            veriler={
+                                id: data.id,
+                                name:data.name,
+                                surname:data.surname,
+                                email:data.email,
+                                userType:data.user_type,
+                                uniID:result[0].uniID,
+                                uniCode:result2[0].uniCode,
+                                facID:result[0].facID,
+                                facName:result2[0].facName,
+                                unitID:result[0].unitID,
+                                unitName:result2[0].unitName,
+                                depID:result[0].depID,
+                                depName:result2[0].depName,
+                                sinif:result[0].sinif
+                            }
+                            res.send(veriler);
+                        }
+                    });
                 }
             });
         }

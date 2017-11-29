@@ -414,7 +414,7 @@ router.get('/outoLogin',ensureToken ,function (req,res) {
                 }
                 else{
 
-                    sql = "SELECT university.uniCode,units.unitName,faculty.fakülte,department.depName,universityinfo.sinif";
+                    sql = "SELECT university.uniCode,units.unitName,faculty.fakulte,department.depName,universityinfo.sinif";
                     sql += " FROM universityinfo";
                     sql += " INNER JOIN university ON universityinfo.uniID = university.uid";
                     sql += " INNER JOIN units ON universityinfo.unitID = units.unitID";

@@ -62,7 +62,9 @@ io.sockets.on("connection", function (socket) {
 
 
     socket.on('switchRoom', function(newroom){
-        socket.leave(socket.channel);
+        if(socket.channel){
+            socket.leave(socket.channel);
+        }
         socket.join(newroom);
         socket.channel = newroom;
     });

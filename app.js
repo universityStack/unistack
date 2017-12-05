@@ -40,9 +40,6 @@ var server = app.listen(global_variables.server_port(),function () {
 
 var io = require("socket.io").listen(server);
 io.sockets.on("connection", function (socket) {
-    var kanal;
-    var kullanici;
-
 
     socket.on('user',function (user) {
         socket.username = user;

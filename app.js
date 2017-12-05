@@ -51,7 +51,34 @@ io.sockets.on("connection", function (socket) {
     });
     socket.on('disconnect', function(){
         console.log(socket.username + ' disconnected from : ' + socket.channel);
+
+        delete usernames[socket.username];
+        io.sockets.emit('updateusers', usernames);
+        socket.leave(socket.room);
+
     });
+
+
+
+
+
+
+
+    socket.on('switchRoom', function(newroom){
+        socket.leave(socket.channel);
+        socket.join(newroom);
+        socket.channel = newroom;
+    });
+
+
+
+
+
+
+
+
+
+
     socket.on("message", function (msg) {
         db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, socket.username, socket.channel],function (err,data) {
             if(err){

@@ -45,38 +45,38 @@ io.sockets.on("connection", function (socket) {
 
 
     socket.on('user',function (user) {
-        kullanici = user;
-        console.log(kullanici + ' connected to : ' + kanal);
+        socket.username = user;
+        console.log(socket.username + ' connected to : ' + socket.channel);
     });
     socket.on("channelfixer", function (mychannel) {
        socket.join(mychannel);
-        kanal = mychannel;
+        socket.channel = mychannel;
     });
     socket.on('disconnect', function(){
-        console.log(kullanici + ' disconnected from : ' + kanal);
+        console.log(socket.username + ' disconnected from : ' + socket.channel);
     });
     socket.on("message", function (msg) {
-        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, kullanici, kanal],function (err,data) {
+        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, socket.username, socket.channel],function (err,data) {
             if(err){
                 console.log(err);
             }
             else{
                 var veri = {
                     'mesaj' : msg,
-                    'user' : kullanici,
-                    "kanal" : kanal,
+                    'user' : socket.username,
+                    "kanal" : socket.channel,
                     "tarih" : new Date().getHours()+":"+ new Date().getMinutes() + "/" + new Date().getDay() + "." + new Date().getMonth() + "." + new Date().getFullYear()
                 //surum
                 }
-                socket.to(socket.rooms[kanal]).emit('message', veri);
+                socket.to(socket.rooms[socket.channel]).emit('message', veri);
             }
         });
     });
     socket.on('typing', function (status) {
-        socket.to(socket.rooms[kanal]).emit('typing', status);
+        socket.to(socket.rooms[socket.channel]).emit('typing', status);
     });
     socket.on('stoptyping', function (status) {
-        socket.to(socket.rooms[kanal]).emit('stoptyping', status);
+        socket.to(socket.rooms[socket.channel]).emit('stoptyping', status);
     });
 
 

@@ -51,10 +51,7 @@ io.sockets.on("connection", function (socket) {
     });
     socket.on('disconnect', function(){
         console.log(socket.username + ' disconnected from : ' + socket.channel);
-
-        delete usernames[socket.username];
-        io.sockets.emit('updateusers', usernames);
-        socket.leave(socket.room);
+        socket.leave(socket.channel);
 
     });
 

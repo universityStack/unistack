@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5249e1c7-69cb-4670-ba89-8eb40d4ac903" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log.log" afterPath="$PROJECT_DIR$/log.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/model/db.js" afterPath="$PROJECT_DIR$/routes/model/db.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,22 +22,12 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="70" column="33" lean-forward="false" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+            <state relative-caret-position="-148">
+              <caret line="68" column="37" lean-forward="false" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
               <folding>
-                <element signature="e#3441#3520#0" expanded="false" />
-                <marker date="1512603040909" expanded="false" signature="3569:3652" ph="{...}" />
+                <element signature="e#3152#3231#0" expanded="false" />
+                <marker date="1512604579420" expanded="false" signature="3280:3363" ph="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="chat.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/chat.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -55,12 +47,15 @@
       <find>code pa</find>
       <find>mail kayıt</find>
       <find>console</find>
-      <find>rooms</find>
       <find>data</find>
       <find>name</find>
       <find>forb</find>
       <find>fo</find>
       <find>cron</find>
+      <find>room</find>
+      <find>rooms</find>
+      <find>bmg</find>
+      <find>channel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -140,6 +135,11 @@
             <path>
               <item name="unistack" type="b2602c69:ProjectViewProjectNode" />
               <item name="unistack" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unistack" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unistack" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="unistack" type="b2602c69:ProjectViewProjectNode" />
@@ -247,12 +247,12 @@
       <workItem from="1511957885963" duration="10000" />
       <workItem from="1512494808563" duration="117000" />
       <workItem from="1512507755065" duration="4956000" />
-      <workItem from="1512590344318" duration="10640000" />
+      <workItem from="1512590344318" duration="12169000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144882000" />
+    <option name="totallyTimeSpent" value="146411000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -263,7 +263,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2204969" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32142857" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -583,7 +583,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/chat.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
+        <state relative-caret-position="146">
           <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
           <folding />
         </state>
@@ -591,11 +591,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="70" column="33" lean-forward="false" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+        <state relative-caret-position="-148">
+          <caret line="68" column="37" lean-forward="false" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
           <folding>
-            <element signature="e#3441#3520#0" expanded="false" />
-            <marker date="1512603040909" expanded="false" signature="3569:3652" ph="{...}" />
+            <element signature="e#3152#3231#0" expanded="false" />
+            <marker date="1512604579420" expanded="false" signature="3280:3363" ph="{...}" />
           </folding>
         </state>
       </provider>

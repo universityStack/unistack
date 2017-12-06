@@ -69,7 +69,7 @@ io.sockets.on("connection", function (socket) {
 
         if(socket.channel){
             socket.leave(socket.channel);
-            global_variables.logla.error(socket.channel);
+            global_variables.logla.error(socket.adapter.channel);
         }
         socket.join(newroom);
         socket.channel = newroom;

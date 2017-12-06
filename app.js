@@ -67,13 +67,12 @@ io.sockets.on("connection", function (socket) {
     socket.on('switchRoom', function(newroom){
 
 
-        if(socket.adapter.channel){
-            socket.leave(socket.adapter.channel);
+        if(socket.channel){
+            socket.leave(socket.channel);
             global_variables.logla.error(" channel"+socket.channel);
-            global_variables.logla.error(" adapter"+socket.adapter.channel);
         }
         socket.join(newroom);
-        socket.adapter.channel = newroom;
+        socket.channel = newroom;
     });
 
 
@@ -86,7 +85,7 @@ io.sockets.on("connection", function (socket) {
 
 
     socket.on("message", function (msg) {
-        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, socket.username, socket.adapter.channel],function (err,data) {
+        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, socket.username, socket.channel],function (err,data) {
             if(err){
                 console.log(err);
             }
@@ -94,11 +93,11 @@ io.sockets.on("connection", function (socket) {
                 var veri = {
                     'mesaj' : msg,
                     'user' : socket.username,
-                    "kanal" : socket.adapter.channel,
+                    "kanal" : socket.channel,
                     "tarih" : new Date().getHours()+":"+ new Date().getMinutes() + "/" + new Date().getDay() + "." + new Date().getMonth() + "." + new Date().getFullYear()
                 //surum
                 }
-                socket.to(socket.rooms[socket.adapter.channel]).emit('message', veri);
+                socket.to(socket.rooms[socket.channel]).emit('message', veri);
                 socket.emit('nowMessage', veri);
             }
         });

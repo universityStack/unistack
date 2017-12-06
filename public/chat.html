@@ -8,7 +8,7 @@
         var socket = io();
         var channel = prompt("kanal adı : ");
         var ad = prompt("adınız");
-        socket.emit("channelfixer",channel);
+        socket.emit("switchRoom",channel);
         socket.emit("user", ad);
         socket.on("connect", function () {
            socket.on("message", function (veri) {

@@ -46,13 +46,16 @@ io.sockets.on("connection", function (socket) {
 
     socket.on('user',function (user) {
         socket.username = user;
+        console.log(socket.username + ' connected to : ' + socket.channel);
     });
     socket.on("channelfixer", function (mychannel) {
        socket.join(mychannel);
-       socket.channel = mychannel;
+        socket.channel = mychannel;
     });
     socket.on('disconnect', function(){
+        console.log(socket.username + ' disconnected from : ' + socket.channel);
         socket.leave(socket.channel);
+
     });
 
 
@@ -62,13 +65,13 @@ io.sockets.on("connection", function (socket) {
 
 
     socket.on('switchRoom', function(newroom){
+
+
         if(socket.channel){
-            socket._destroy();
+            socket.leave(socket.channel);
         }
-            socket.join(newroom);
-            socket.channel = newroom;
-
-
+        socket.join(newroom);
+        socket.channel = newroom;
     });
 
 

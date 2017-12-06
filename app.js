@@ -67,7 +67,7 @@ io.sockets.on("connection", function (socket) {
     socket.on('switchRoom', function(newroom){
 
 
-        if(socket.adapter.channel){
+        if(socket.channel){
             socket.leave(socket.adapter.channel);
             global_variables.logla.error(socket.channel);
         }

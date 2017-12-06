@@ -66,8 +66,11 @@ io.sockets.on("connection", function (socket) {
 
     socket.on('switchRoom', function(newroom){
         global_variables.logla.error("ayrilan kullanıcı : " + socket.username+"ayrilinan oda : "+newroom);
-    
-        if(socket.channel){socket.leave(socket.channel);}
+
+        if(socket.channel){
+            socket.leave(socket.channel);
+            global_variables.logla.error("ayrilan kullanıcı : " + socket.username+"tekrar  girilen oda : "+newroom);
+        }
         socket.join(newroom);
         socket.channel = newroom;
     });

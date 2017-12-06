@@ -7,6 +7,9 @@ var chatOldMessage = require('./routes/user_operations/chatOldMessage');
 var security = require('./routes/user_operations/security');
 var universityInfo = require('./routes/user_operations/universityInfo');
 var global_variables = require('./global_variables');
+
+
+
 //*************************************************************************
 var app = express();
 //*************************************************************************
@@ -62,9 +65,7 @@ io.sockets.on("connection", function (socket) {
 
 
     socket.on('switchRoom', function(newroom){
-        if(socket.channel){
-            socket.leave(socket.channel);
-        }
+        if(socket.channel){socket.leave(socket.channel); global_variables.logla.error("ayrilan kullanıcı : " + socket.username+"ayrilinan oda : "+socket.channel);}
         socket.join(newroom);
         socket.channel = newroom;
     });

@@ -67,12 +67,12 @@ io.sockets.on("connection", function (socket) {
     socket.on('switchRoom', function(newroom){
 
 
-        if(socket.channel){
-            socket.leave(socket.channel);
+        if(socket.adapter.channel){
+            socket.leave(socket.adapter.channel);
             global_variables.logla.error(socket.adapter.channel);
         }
         socket.join(newroom);
-        socket.channel = newroom;
+        socket.adapter.channel = newroom;
     });
 
 

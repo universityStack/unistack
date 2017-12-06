@@ -86,7 +86,7 @@ io.sockets.on("connection", function (socket) {
 
 
     socket.on("message", function (msg) {
-        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, socket.username, socket.adapter().channel],function (err,data) {
+        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, socket.username, socket.adapter.channel],function (err,data) {
             if(err){
                 console.log(err);
             }

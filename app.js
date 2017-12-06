@@ -69,10 +69,13 @@ io.sockets.on("connection", function (socket) {
         if(!socket.channel){
             socket.join(newroom);
             socket.channel = newroom;
+        }else{
+            socket.leave(socket.channel);
+            socket.join(newroom);
+            socket.channel = newroom;
         }
-        socket.leave(socket.channel);
-        socket.join(newroom);
-        socket.channel = newroom;
+
+
     });
 
 

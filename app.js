@@ -71,8 +71,12 @@ io.sockets.on("connection", function (socket) {
             socket.leave(socket.channel);
             global_variables.logla.error("ayrilan kullanıcı : " + socket.username+"tekrar  girilen oda : "+newroom);
         }
+        global_variables.logla.error("ayrilan kullanıcı : " + socket.username+" yeni oda1 : "+socket.channel);
+        global_variables.logla.error("ayrilan kullanıcı : " + socket.username+" yeni oda2 : "+newroom);
         socket.join(newroom);
+        global_variables.logla.error("onaylandi");
         socket.channel = newroom;
+        global_variables.logla.error("ayrilan kullanıcı : " + socket.username+" yeni oda : "+socket.channel);
     });
 
 
@@ -98,6 +102,7 @@ io.sockets.on("connection", function (socket) {
                 //surum
                 }
                 socket.to(socket.rooms[socket.channel]).emit('message', veri);
+                socket.emit('nowMessage', veri);
             }
         });
     });

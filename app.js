@@ -73,6 +73,7 @@ io.sockets.on("connection", function (socket) {
         }
         socket.join(newroom);
         socket.channel = newroom;
+        global_variables.logla.error(" channel"+socket.channel);
     });
 
 

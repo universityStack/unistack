@@ -68,7 +68,7 @@ io.sockets.on("connection", function (socket) {
 
 
         if(socket.channel){
-            socket.leave(socket.adapter.channel);
+            socket.leave(socket.channel);
             global_variables.logla.error(" channel"+socket.channel);
             global_variables.logla.error(" adapter"+socket.adapter.channel);
         }

@@ -275,7 +275,7 @@ router.post("/login",function (req,res) {
                     if(userType == 0 ){
                         var activationStatus = result[0].activation_status;
                         if(activationStatus == 0){
-                            res.send({code:302, message:"hesap aktif değil ve öğrenci"});
+                            res.send({code:302, message:"hesap aktif değil ve öğrenci", id : result[0].id});
                         }
                         else if(activationStatus == 1){
 
@@ -298,7 +298,7 @@ router.post("/login",function (req,res) {
                     else if(userType == 1){
                         var activationStatus = result[0].activation_status;
                         if(activationStatus == 0){
-                            res.send({code:301, message:"hesap aktif değil ve hoca"});
+                            res.send({code:301, message:"hesap aktif değil ve hoca", id : result[0].id});
                         }
                         else if(activationStatus == 1){
 

@@ -28,6 +28,9 @@ app.use('/chatOldMessage',chatOldMessage);
 app.get('/chat',function (req,res) {
     res.sendFile(__dirname + '/public/chat.html');
 });
+app.get('/signup',function (req,res) {
+    res.sendFile(__dirname + '/public/signup.html');
+});
 app.get('/upload',function (req,res) {
     res.sendFile(__dirname + '/public/upload.html');
 });

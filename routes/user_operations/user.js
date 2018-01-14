@@ -4,6 +4,7 @@ var CryptoJS = require("crypto-js");
 var passwordHash = require('password-hash');
 var randomstring = require("randomstring");
 var db = require('../model/db');
+var path = require("path");
 var profile = require('./profile/profile');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
@@ -284,7 +285,8 @@ router.post("/login",function (req,res) {
                                     res.send({code:400,error:"db hatası"});
                                 }
                                 else if(veri.length==1){
-                                    res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token , id : result[0].id});
+                                    res.redirect("/upload");
+                                    res.end('cascsa',{code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token , id : result[0].id});
                                 }
                                 else{
                                     res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token,  id : result[0].id});
@@ -401,7 +403,6 @@ router.post("/login",function (req,res) {
             res.send({code:400, error:"bu mailde bir hesap bulunamadı."});
         }
     });
-
 });
 router.get('/outoLogin',ensureToken ,function (req,res) {
     jwt.verify(req.token, 'tolunayguduk', function(err, data) {

@@ -285,8 +285,7 @@ router.post("/login",function (req,res) {
                                     res.send({code:400,error:"db hatası"});
                                 }
                                 else if(veri.length==1){
-                                    res.redirect("/upload");
-                                    res.end({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token , id : result[0].id});
+                                    res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token , id : result[0].id});
                                 }
                                 else{
                                     res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token,  id : result[0].id});

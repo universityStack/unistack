@@ -83,7 +83,7 @@ io.sockets.on("connection", function (socket) {
 
 
 
-            db.query("select registerID from registereddevice",function (err,result) {
+            db.query("select registerID from registeredDevice",function (err,result) {
                if(err){
                    console.log(err);
                }

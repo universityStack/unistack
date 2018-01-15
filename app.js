@@ -6,10 +6,11 @@ var gcmCloud = require('./routes/model/gcmCloud');
 var user = require('./routes/user_operations/user');
 var chatOldMessage = require('./routes/user_operations/chatOldMessage');
 var security = require('./routes/user_operations/security');
-var notification = require('./routes//notification');
+var registration = require('./routes//registration');
 var universityInfo = require('./routes/user_operations/universityInfo');
 var global_variables = require('./global_variables');
-var gcm = require('node-gcm');
+var gcmCloud = require('./routes/model/gcmCloud');
+
 
 
 //*************************************************************************
@@ -30,7 +31,7 @@ app.use('/chatOldMessage',chatOldMessage);
 app.get('/chat',function (req,res) {
     res.sendFile(__dirname + '/public/chat.html');
 });
-app.use('/notification',notification);
+app.use('/registration',registration);
 app.get('/signup',function (req,res) {
     res.sendFile(__dirname + '/public/signup.html');
 });
@@ -83,34 +84,24 @@ io.sockets.on("connection", function (socket) {
 
 
 
+
+
+
+
             db.query("select registerID from registeredDevice",function (err,result) {
                if(err){
                    console.log(err);
                }
                else{
 
-                   var message = new gcm.Message({
-                       data: {
-                           key1: msg
-                       },
-                       notification: {
-                           title: "Hello, World",
-                           icon: "ic_launcher",
-                           body: "This is a notification that will be displayed if your app is in the background."
-                       }
-
-                   });
-                   var sender = new gcm.Sender(global_variables.gcm());
-                   var registrationTokens = [];
-                   for(var i=0;i < result.length;i++){
-                       registrationTokens.push(result[i].registerID);
+                   var identity = {
+                       "username" : socket.username,
+                       "message" : msg,
+                       "channel" : socket.channel
                    }
-                   sender.send(message, { registrationTokens: registrationTokens }, function (err, response) {
-                       if(err) console.error(err);
-                       else    console.log(response);
-                   });
 
 
+                    gcmCloud.googleCloud(msg,global_variables.gcm(),result,identity)
                }
             });
 

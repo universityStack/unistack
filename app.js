@@ -2,12 +2,14 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var path = require("path");
 var db = require('./routes/model/db');
+var gcmCloud = require('./routes/model/gcmCloud');
 var user = require('./routes/user_operations/user');
 var chatOldMessage = require('./routes/user_operations/chatOldMessage');
 var security = require('./routes/user_operations/security');
+var notification = require('./routes//notification');
 var universityInfo = require('./routes/user_operations/universityInfo');
 var global_variables = require('./global_variables');
-
+var gcm = require('node-gcm');
 
 
 //*************************************************************************
@@ -28,6 +30,7 @@ app.use('/chatOldMessage',chatOldMessage);
 app.get('/chat',function (req,res) {
     res.sendFile(__dirname + '/public/chat.html');
 });
+app.use('/notification',notification);
 app.get('/signup',function (req,res) {
     res.sendFile(__dirname + '/public/signup.html');
 });
@@ -60,13 +63,6 @@ io.sockets.on("connection", function (socket) {
         socket.leave(socket.channel);
 
     });
-
-
-
-
-
-
-
     socket.on('switchRoom', function(newroom){
 
 
@@ -76,22 +72,49 @@ io.sockets.on("connection", function (socket) {
         socket.join(newroom);
         socket.channel = newroom;
     });
-
-
-
-
-
-
-
-
-
-
     socket.on("message", function (msg) {
         db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, socket.username, socket.channel],function (err,data) {
             if(err){
                 console.log(err);
             }
             else{
+
+
+
+
+
+            db.query("select registerID from registereddevice",function (err,result) {
+               if(err){
+                   console.log(err);
+               }
+               else{
+                   var sender = new gcm.Sender(global_variables.gcm());
+                   var message = new gcm.Message({
+                       data: { mesaj: msg }
+                   });
+                   var regTokens = result[0];
+                   sender.send(message, { registrationTokens: regTokens }, function (err, response) {
+                       if (err) console.error(err);
+                       else console.log(response);
+                   });
+               }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 var veri = {
                     'mesaj' : msg,
                     'user' : socket.username,
@@ -103,6 +126,7 @@ io.sockets.on("connection", function (socket) {
                 socket.emit('nowMessage', veri);
             }
         });
+
     });
     socket.on('typing', function (status) {
         socket.to(socket.rooms[socket.channel]).emit('typing', status);

@@ -3,7 +3,7 @@ exports.server_port = function () {
 }
 
 exports.gcm = function () {
-    return "AIzaSyAZeDhRAPtyOYm_nFryxRlfMI-7-uSMWfo";
+    return "AIzaSyCKewtwH1SVSev5iHJmzm4MWLGevO9i6Ag";
 }
 
 const log4js = require('log4js');

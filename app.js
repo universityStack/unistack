@@ -88,15 +88,29 @@ io.sockets.on("connection", function (socket) {
                    console.log(err);
                }
                else{
-                   var sender = new gcm.Sender(global_variables.gcm());
+
                    var message = new gcm.Message({
-                       data: { mesaj: msg }
+                       data: {
+                           key1: msg
+                       },
+                       notification: {
+                           title: "Hello, World",
+                           icon: "ic_launcher",
+                           body: "This is a notification that will be displayed if your app is in the background."
+                       }
+
                    });
-                   var regTokens = result;
-                   sender.send(message, { registrationTokens: regTokens }, function (err, response) {
-                       if (err) console.error(err);
-                       else console.log(response);
+                   var sender = new gcm.Sender(global_variables.gcm());
+                   var registrationTokens = [];
+                   for(var i=0;i < result.length;i++){
+                       registrationTokens.push(result[i].registerID);
+                   }
+                   sender.send(message, { registrationTokens: registrationTokens }, function (err, response) {
+                       if(err) console.error(err);
+                       else    console.log(response);
                    });
+
+
                }
             });
 

@@ -351,6 +351,7 @@ router.post("/login",function (req,res) {
                                           }
                                           else if(veri.length==1){
                                               res.send({code:204, message:"login başarılı formu daha önce doldurmuş öğrenci", token : result[0].token,  id : result[0].id});
+                                              
                                           }
                                           else{
                                               res.send({code:203, message:"login başarılı formu daha önce doldurmamış öğrenci", token :  result[0].token,  id : result[0].id});

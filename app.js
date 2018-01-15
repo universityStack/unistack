@@ -92,7 +92,7 @@ io.sockets.on("connection", function (socket) {
                    var message = new gcm.Message({
                        data: { mesaj: msg }
                    });
-                   var regTokens = result[0];
+                   var regTokens = result;
                    sender.send(message, { registrationTokens: regTokens }, function (err, response) {
                        if (err) console.error(err);
                        else console.log(response);

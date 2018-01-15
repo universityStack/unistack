@@ -8,7 +8,7 @@ router.get('/',function (req,res) {
             res.send(err);
         }
         else{
-            res.send("başarılı");
+            res.send({code : 200 , message : "kayıt başarılı"});
         }
     });
 });

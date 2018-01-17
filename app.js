@@ -74,24 +74,20 @@ io.sockets.on("connection", function (socket) {
         socket.channel = newroom;
     });
     socket.on("message", function (msg) {
-        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg, socket.username, socket.channel],function (err,data) {
+        db.query('INSERT INTO chat(message,gonderen,gonderilen,tarih) values(?,?,?,now())',[msg.message, socket.username, socket.channel],function (err,data) {
             if(err){
                 console.log(err);
             }
             else{
-                logger = global_variables.messageLogger;
-                logger.info("************************"+msg);
-                var json = JSON.parse(msg);
-                logger.info("********.message*******"+msg.message);
                 var veri = {
-                    'mesaj' : json.message,
+                    'mesaj' : msg.message,
                     'user' : socket.username,
                     "kanal" : socket.channel,
                     "tarih" : new Date().getHours()+":"+ new Date().getMinutes() + "/" + new Date().getDay() + "." + new Date().getMonth() + "." + new Date().getFullYear()
                 }
 
 
-                gcmCloud.googleCloud(json.message,global_variables.gcm(),veri)
+                gcmCloud.googleCloud(msg.message,global_variables.gcm(),veri)
 
 
                 socket.to(socket.rooms[socket.channel]).emit('message', veri);

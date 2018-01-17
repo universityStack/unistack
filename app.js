@@ -81,16 +81,17 @@ io.sockets.on("connection", function (socket) {
             else{
                 logger = global_variables.messageLogger;
                 logger.info(msg);
-
+                var json = JSON.parse("************************"+msg);
+                logger.info("********.message*******"+msg.message);
                 var veri = {
-                    'mesaj' : msg.message,
+                    'mesaj' : json.message,
                     'user' : socket.username,
                     "kanal" : socket.channel,
                     "tarih" : new Date().getHours()+":"+ new Date().getMinutes() + "/" + new Date().getDay() + "." + new Date().getMonth() + "." + new Date().getFullYear()
                 }
 
 
-                gcmCloud.googleCloud(msg.message,global_variables.gcm(),veri)
+                gcmCloud.googleCloud(json.message,global_variables.gcm(),veri)
 
 
                 socket.to(socket.rooms[socket.channel]).emit('message', veri);

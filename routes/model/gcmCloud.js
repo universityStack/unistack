@@ -1,10 +1,10 @@
 var gcm = require('node-gcm');
 var db = require('./db');
 var global_variables = require('../../global_variables');
-exports.googleCloud = function (msg,gcmID,identity) {
+exports.googleCloud = function (msg,gcmID,identity,regId) {
 
 
-    db.query("select registerID from registeredDevice",function (err,result) {
+    db.query("select registerID from registeredDevice where registerID != ?",[regId],function (err,result) {
         if(err){console.log(err);}
         else{
             var message = new gcm.Message({

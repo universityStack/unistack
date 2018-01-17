@@ -87,7 +87,7 @@ io.sockets.on("connection", function (socket) {
                 }
 
 
-                gcmCloud.googleCloud(msg.message,global_variables.gcm(),veri)
+                gcmCloud.googleCloud(msg.message,global_variables.gcm(),veri,msg.regId);
 
 
                 socket.to(socket.rooms[socket.channel]).emit('message', veri);

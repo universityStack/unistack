@@ -31,8 +31,8 @@
                 <element signature="e#2287#2361#0" expanded="false" />
                 <element signature="e#2402#2529#0" expanded="false" />
                 <element signature="e#2577#2730#0" expanded="false" />
-                <element signature="e#3749#3828#0" expanded="false" />
-                <element signature="e#3877#3960#0" expanded="false" />
+                <element signature="e#3741#3820#0" expanded="false" />
+                <element signature="e#3869#3952#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -287,12 +287,12 @@
       <workItem from="1516040425023" duration="4475000" />
       <workItem from="1516046980399" duration="585000" />
       <workItem from="1516047576313" duration="3538000" />
-      <workItem from="1516183944932" duration="4720000" />
+      <workItem from="1516183944932" duration="4796000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="199276000" />
+    <option name="totallyTimeSpent" value="199352000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -630,8 +630,8 @@
             <element signature="e#2287#2361#0" expanded="false" />
             <element signature="e#2402#2529#0" expanded="false" />
             <element signature="e#2577#2730#0" expanded="false" />
-            <element signature="e#3749#3828#0" expanded="false" />
-            <element signature="e#3877#3960#0" expanded="false" />
+            <element signature="e#3741#3820#0" expanded="false" />
+            <element signature="e#3869#3952#0" expanded="false" />
           </folding>
         </state>
       </provider>

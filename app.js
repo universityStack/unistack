@@ -79,56 +79,20 @@ io.sockets.on("connection", function (socket) {
                 console.log(err);
             }
             else{
-
-
-
-
-
-
-
-
-
-            db.query("select registerID from registeredDevice",function (err,result) {
-               if(err){
-                   console.log(err);
-               }
-               else{
-
-                   var identity = {
-                       "username" : socket.username,
-                       "message" : msg,
-                       "channel" : socket.channel
-                   }
-
-
-                    gcmCloud.googleCloud(msg,global_variables.gcm(),result,identity)
-               }
-            });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                var json = JSON.stringify(msg);
                 var veri = {
-                    'mesaj' : msg,
+                    'mesaj' : json.message,
                     'user' : socket.username,
                     "kanal" : socket.channel,
                     "tarih" : new Date().getHours()+":"+ new Date().getMinutes() + "/" + new Date().getDay() + "." + new Date().getMonth() + "." + new Date().getFullYear()
-                //surum
                 }
+
+
+                gcmCloud.googleCloud(msg,global_variables.gcm(),veri)
+
+
                 socket.to(socket.rooms[socket.channel]).emit('message', veri);
-                socket.emit('nowMessage', veri);
+                //socket.emit('nowMessage', veri);
             }
         });
 

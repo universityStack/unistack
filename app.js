@@ -82,9 +82,8 @@ io.sockets.on("connection", function (socket) {
                 logger = global_variables.messageLogger;
                 logger.info(json.message);
 
-                var json = JSON.stringify(msg);
                 var veri = {
-                    'mesaj' : json.message,
+                    'mesaj' : msg.message,
                     'user' : socket.username,
                     "kanal" : socket.channel,
                     "tarih" : new Date().getHours()+":"+ new Date().getMinutes() + "/" + new Date().getDay() + "." + new Date().getMonth() + "." + new Date().getFullYear()

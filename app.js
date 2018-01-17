@@ -4,6 +4,7 @@ var path = require("path");
 var db = require('./routes/model/db');
 var gcmCloud = require('./routes/model/gcmCloud');
 var user = require('./routes/user_operations/user');
+var profile = require('./routes/user_operations/profile/profile');
 var chatOldMessage = require('./routes/user_operations/chatOldMessage');
 var security = require('./routes/user_operations/security');
 var registration = require('./routes//registration');
@@ -26,6 +27,7 @@ app.get('/',function (req,res) {
 });
 app.use('/user',user);
 app.use('/security',security);
+app.use('/profile',profile);
 app.use('/universityInfo',universityInfo);
 app.use('/chatOldMessage',chatOldMessage);
 app.get('/chat',function (req,res) {
@@ -34,6 +36,14 @@ app.get('/chat',function (req,res) {
 app.use('/registration',registration);
 app.get('/signup',function (req,res) {
     res.sendFile(__dirname + '/public/signup.html');
+});
+app.get('/log',function (req,res) {
+    if(req.header("secure")=="tolunayguduk"){
+        res.sendFile(__dirname + '/log.log');
+    }else{
+        res.send({code: 400, message:"Sayfa mevcut değil"});
+    }
+
 });
 app.get('/upload',function (req,res) {
     res.sendFile(__dirname + '/public/upload.html');

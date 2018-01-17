@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require("path");
+var nodemailer = require('nodemailer');
 const fileUpload = require('express-fileupload');
 var db = require('../../model/db');
 var router = express.Router();
@@ -33,11 +34,41 @@ router.post('/changeName', function (req, res) {
         })
     }
 });
+router.get('/deleteAccount', function (req, res) {
+    db.query("update users set activation_status = 0 where email = ?",[req.header("usermail")],function (err,data) {
+        if(err){
+            res.send({code : 400, message : "işlem gerçekleştirilemedi..."});
+        }
+        else{
+            res.send({code : 200 , message : "işlme gerçekleştirildi..."});
+        }
+    });
+});
+router.post('/feedback', function (req,res) {
+    var transporter = nodemailer.createTransport({
+        service: 'yandex',
+        host: 'smtp.yandex.com.tr',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'info@unistackapp.com',
+            pass: '123654...'
+        }
+    });
+    var mailOptions = {
+        from: 'info@unistackapp.com',
+        to: 'info@unistackapp.com',
+        subject: 'FEEDBACK FROM '+ req.body.email,
+        html : req.body.message
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            res.send({code: 400, error : error});
+        } else {
+            res.send({code : 200, message : info});
+        }
+    });
 
-
-
-router.post('/deleteAccount', function (req, res) {
-    req.body.userID;
 });
 
 

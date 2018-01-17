@@ -1,0 +1,18 @@
+[2018-01-17T16:13:40.346] [INFO] messageLog - "{'mesaj':'merhaba'}"
+[2018-01-17T16:13:40.738] [INFO] messageLog - { identity: '{"user":"evren","kanal":"bmg","tarih":"16:13/3.0.2018"}',
+  gcm: '{"multicast_id":7901491076999611000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1516194820097707%e7fe82cdf9fd7ecd"}]}' }
+[2018-01-17T16:14:00.150] [INFO] messageLog - "merhaertfba"
+[2018-01-17T16:14:00.430] [INFO] messageLog - { identity: '{"user":"evren","kanal":"bmg","tarih":"16:14/3.0.2018"}',
+  gcm: '{"multicast_id":5127899439186822000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1516194839791987%e7fe82cdf9fd7ecd"}]}' }
+[2018-01-17T16:14:42.471] [INFO] messageLog - merhaertfba
+[2018-01-17T16:14:42.926] [INFO] messageLog - { identity: '{"mesaj":"merhaertfba","tarih":"16:14/3.0.2018"}',
+  gcm: '{"multicast_id":6561032606062353000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1516194882255179%e7fe82cdf9fd7ecd"}]}' }
+[2018-01-17T16:14:59.592] [INFO] messageLog - merhaertfba
+[2018-01-17T16:14:59.828] [INFO] messageLog - { identity: '{"mesaj":"merhaertfba","user":"evren","kanal":"bmg","tarih":"16:14/3.0.2018"}',
+  gcm: '{"multicast_id":6087075571421420000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1516194899169737%e7fe82cdf9fd7ecd"}]}' }
+[2018-01-17T16:15:09.370] [INFO] messageLog - {'mesaj':'merhaba'}
+[2018-01-17T16:15:09.554] [INFO] messageLog - { identity: '{"mesaj":"{\'mesaj\':\'merhaba\'}","user":"evren","kanal":"bmg","tarih":"16:15/3.0.2018"}',
+  gcm: '{"multicast_id":4972731516154331000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1516194908931078%e7fe82cdf9fd7ecd"}]}' }
+[2018-01-17T16:16:14.971] [INFO] messageLog - { message: 'merhaba' }
+[2018-01-17T16:16:15.405] [INFO] messageLog - { identity: '{"mesaj":"merhaba","user":"evren","kanal":"bmg","tarih":"16:16/3.0.2018"}',
+  gcm: '{"multicast_id":9085454684789846000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1516194974726990%e7fe82cdf9fd7ecd"}]}' }

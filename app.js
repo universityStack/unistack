@@ -80,8 +80,8 @@ io.sockets.on("connection", function (socket) {
             }
             else{
                 logger = global_variables.messageLogger;
-                logger.info(msg);
-                var json = JSON.parse("************************"+msg);
+                logger.info("************************"+msg);
+                var json = JSON.parse(msg);
                 logger.info("********.message*******"+msg.message);
                 var veri = {
                     'mesaj' : json.message,

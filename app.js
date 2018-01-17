@@ -79,6 +79,9 @@ io.sockets.on("connection", function (socket) {
                 console.log(err);
             }
             else{
+                logger = global_variables.messageLogger;
+                logger.info(json.message);
+
                 var json = JSON.stringify(msg);
                 var veri = {
                     'mesaj' : json.message,

@@ -80,6 +80,7 @@ io.sockets.on("connection", function (socket) {
             }
             else{
                 var veri = {
+                    "class" : msg.class,
                     'mesaj' : msg.message,
                     'user' : socket.username,
                     "kanal" : socket.channel,

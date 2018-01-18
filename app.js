@@ -75,8 +75,6 @@ io.sockets.on("connection", function (socket) {
 
     });
     socket.on('switchRoom', function(newroom){
-
-
         if(socket.channel){
             socket.leave(socket.channel);
         }
@@ -90,7 +88,6 @@ io.sockets.on("connection", function (socket) {
             }
             else{
                 var veri = {
-                    "class" : msg.class,
                     'mesaj' : msg.message,
                     'user' : socket.username,
                     "kanal" : socket.channel,
@@ -98,7 +95,8 @@ io.sockets.on("connection", function (socket) {
                 }
 
 
-                gcmCloud.googleCloud(msg.message,global_variables.gcm(),veri,msg.regId);
+                gcmCloud.googleCloud(msg.message,global_variables.gcm(),veri,msg.regId,socket.channel);
+
 
 
                 socket.to(socket.rooms[socket.channel]).emit('message', veri);

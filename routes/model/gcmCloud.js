@@ -1,10 +1,10 @@
 var gcm = require('node-gcm');
 var db = require('./db');
 var global_variables = require('../../global_variables');
-exports.googleCloud = function (msg,gcmID,identity,regId) {
+exports.googleCloud = function (msg,gcmID,identity,regId,channel) {
 
 
-    db.query("select registerID from registeredDevice where registerID != ?",[regId],function (err,result) {
+    db.query("select registerID from registeredDevice where registerID != ? and channel = ?",[regId,channel],function (err,result) {
         if(err){console.log(err);}
         else{
             var message = new gcm.Message({
@@ -31,6 +31,4 @@ exports.googleCloud = function (msg,gcmID,identity,regId) {
             });
         }
     });
-
-
 }

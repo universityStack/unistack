@@ -18,13 +18,13 @@ exports.googleCloud = function (msg,gcmID,identity,regId) {
             for(var i=0;i < result.length;i++){
                 registrationTokens.push(result[i].registerID);
             }
-            sender.send(message, { registrationTokens: registrationTokens }, function (err, response) {
-                if(err) console.error(err);
-                else{
 
-                    var json1 = JSON.stringify(response);
-                    var json2 = JSON.stringify(identity);
-                    var veri = {"identity" : json2, "gcm" : json1}
+            sender.send(message, { registrationTokens: registrationTokens }, function (err, response) {
+                if(err) {
+                    console.error(err);
+                }
+                else{
+                    var veri = {"identity" : identity, "gcm" : response}
                     logger = global_variables.messageLogger;
                     logger.info(veri);
                 }

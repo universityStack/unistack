@@ -38,10 +38,10 @@ app.get('/signup',function (req,res) {
     res.sendFile(__dirname + '/public/signup.html');
 });
 app.get('/log',function (req,res) {
-    if(req.header("secure")=="tolunayguduk"){
+    if(req.header("secure")==global_variables.apiKey()){
         res.sendFile(__dirname + '/log.log');
     }else{
-        res.send({code: 400, message:"Sayfa mevcut değil"});
+        res.send({code: 400, message:"Access Denied..."});
     }
 
 });

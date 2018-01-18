@@ -24,7 +24,7 @@ exports.googleCloud = function (msg,gcmID,identity,regId) {
                     console.error(err);
                 }
                 else{
-                    var veri = {"identity" : identity, "gcm" : response}
+                    var veri = {"identity" : identity, "gcm" : response, "reg" : registrationTokens}
                     logger = global_variables.messageLogger;
                     logger.info(veri);
                 }

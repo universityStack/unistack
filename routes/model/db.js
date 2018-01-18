@@ -2,7 +2,7 @@ var mysql = require('mysql');
 var db_config = {
     host : '139.59.157.209',
     user : 'evren',
-    password : 'Evren123',
+    password : 'Evren123...',
     database : 'deneme'
 };
 var connection;

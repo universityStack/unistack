@@ -4,7 +4,7 @@ var db = require('./model/db');
 var router = express.Router();
 
 router.get('/',function (req,res) {
-    if(req.header("secure")==global_veriables.apiKey()){
+    if(req.header("secure")==global_variables.apiKey()){
         db.query("insert into registeredDevice(registerID,channel,userID) values(?,?,?)",[req.header("registerID"),req.header("channel"),req.header("userID")],function (err,result) {
             if(err){
                 res.send(err);
